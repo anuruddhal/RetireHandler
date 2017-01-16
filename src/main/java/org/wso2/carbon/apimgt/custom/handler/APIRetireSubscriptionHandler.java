@@ -49,7 +49,8 @@ public class APIRetireSubscriptionHandler extends Handler {
                 removeAllSubscriptions(apiIdentifier);
                 log.info("Removed Subscribers");
             } catch (APIManagementException e) {
-                log.error("Failed to remove all subscriptions", e);
+                log.error("Error occurred while delete subscriber");
+                throw new RegistryException(e.getMessage());
             }
         }
 
@@ -61,7 +62,7 @@ public class APIRetireSubscriptionHandler extends Handler {
      * @param apiIdentifier API identifier object
      * @throws APIManagementException
      */
-    public void removeAllSubscriptions(APIIdentifier apiIdentifier) throws APIManagementException {
+    private void removeAllSubscriptions(APIIdentifier apiIdentifier) throws APIManagementException {
         Connection conn = null;
         PreparedStatement ps = null;
         int apiId;
